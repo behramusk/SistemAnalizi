@@ -26,6 +26,7 @@ class MainWindow(QMainWindow):
         
         # Uygulama Başlığı
         self.logo_label = QLabel("<b>SİSTEM Analizi</b>")
+        self.logo_label.setObjectName("logo_label")
         self.logo_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.sidebar_layout.addWidget(self.logo_label)
 
