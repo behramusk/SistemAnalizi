@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QLabel, QStackedWidget, QFrame
 from PySide6.QtCore import Qt
+from gui.views.view_system import SystemInfoView
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -91,11 +92,23 @@ class MainWindow(QMainWindow):
         self.content_area = QStackedWidget()
         self.content_area.setObjectName("content_area")
         
+        # Geçici Boş Sayfa
         self.temp_page = QLabel("- Sisteminizi analiz etmek için soldan bir modül seçin...")
         self.temp_page.setObjectName("placeholder_text")
         self.temp_page.setAlignment(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)
         
-        self.content_area.addWidget(self.temp_page)
-        self.content_layout.addWidget(self.content_area)
+        #  Sistem Bilgisi Sayfası
+        self.page_system = SystemInfoView()
         
+        # Sayfaları StackedWidget'a  ekliyoruz
+        self.content_area.addWidget(self.temp_page)
+        self.content_area.addWidget(self.page_system)
+        
+        self.content_layout.addWidget(self.content_area)
         self.main_layout.addWidget(self.content_frame)
+        
+        # Sinyal/Slot Bağlantısı: Butonlara tıklanınca sayfaları değiştir
+        self.btn_system_info.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_system))
+        
+        # Program ilk açıldığında Sistem Bilgisi sayfası görünsün
+        self.content_area.setCurrentWidget(self.page_system)
