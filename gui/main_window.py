@@ -4,6 +4,7 @@ from gui.views.view_system import SystemInfoView
 from gui.views.view_hardware import HardwareView
 from gui.views.view_storage import StorageView
 from gui.views.view_network import NetworkView
+from gui.views.view_drivers import DriversView
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -132,3 +133,9 @@ class MainWindow(QMainWindow):
         self.content_area.addWidget(self.page_network)
         
         self.btn_network.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_network))
+
+        # Sürücüler sayfası
+        self.page_drivers = DriversView()
+        self.content_area.addWidget(self.page_drivers)
+        
+        self.btn_drivers.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_drivers))
