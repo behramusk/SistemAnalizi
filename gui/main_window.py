@@ -9,6 +9,7 @@ from gui.views.view_update import UpdateView
 from gui.views.view_security import SecurityView
 from gui.views.view_software import SoftwareView
 from gui.views.view_health import HealthView
+from gui.views.view_export import ExportView
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -163,3 +164,8 @@ class MainWindow(QMainWindow):
         self.content_area.addWidget(self.page_health)
         
         self.btn_health.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_health))
+        # Rapor sayfası
+        self.page_export = ExportView()
+        self.content_area.addWidget(self.page_export)
+        
+        self.btn_export.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_export))
