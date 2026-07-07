@@ -8,6 +8,7 @@ from gui.views.view_drivers import DriversView
 from gui.views.view_update import UpdateView
 from gui.views.view_security import SecurityView
 from gui.views.view_software import SoftwareView
+from gui.views.view_health import HealthView
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -157,3 +158,8 @@ class MainWindow(QMainWindow):
         self.content_area.addWidget(self.page_software)
         
         self.btn_software.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_software))
+        # Sağlık sayfası
+        self.page_health = HealthView()
+        self.content_area.addWidget(self.page_health)
+        
+        self.btn_health.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_health))
