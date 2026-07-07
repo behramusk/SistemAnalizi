@@ -53,3 +53,16 @@ QLabel#placeholder_text {
     font-size: 14px;
     padding: 20px;
 }
+
+/* İlerleme Çubukları  */
+QProgressBar {
+    border: 1px solid #3E3E42;
+    background-color: #2D2D30;
+    height: 18px;
+    text-align: center;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+QProgressBar::chunk {
+    background-color: #007ACC; /* Turkuaz dolum efekti */
+}

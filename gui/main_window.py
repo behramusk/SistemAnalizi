@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QLabel, QStackedWidget, QFrame
 from PySide6.QtCore import Qt
 from gui.views.view_system import SystemInfoView
+from gui.views.view_hardware import HardwareView
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -99,6 +100,12 @@ class MainWindow(QMainWindow):
         
         #  Sistem Bilgisi Sayfası
         self.page_system = SystemInfoView()
+        # Donanım sayfasını oluştur ve Yığın'a  ekle
+        self.page_hardware = HardwareView()
+        self.content_area.addWidget(self.page_hardware)
+        
+        # Donanım butonuna tıklandığında sayfayı değiştir
+        self.btn_hardware.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_hardware))
         
         # Sayfaları StackedWidget'a  ekliyoruz
         self.content_area.addWidget(self.temp_page)
