@@ -1,41 +1,55 @@
-/* Ana Pencere Arka Planı */
-QMainWindow {
-    background-color: #1e1e2e;
+/* Genel Ayarlar */
+* {
+    font-family: "Consolas", "Segoe UI", monospace;
 }
 
-/* Tüm Yazılar */
-QLabel {
-    color: #cdd6f4;
-    font-size: 14px;
+/* Ana Arka Plan */
+QWidget#central_widget {
+    background-color: #1E1E1E;
 }
 
-/* Sol Menü Başlığı Özel Tasarımı */
-QLabel#logo_label {
-    font-size: 18px;
+/* Çerçeve Yapıları */
+QFrame#sidebar_frame, QFrame#content_frame {
+    background-color: #252526;
+    border: 1px solid #333333;
+    border-radius: 4px;
+}
+
+/* Kategori Başlıkları */
+QLabel#category_title {
+    color: #38BDF8;
+    font-size: 15px;
     font-weight: bold;
-    color: #89b4fa;
-    padding-bottom: 20px;
+    padding-bottom: 5px;
 }
 
-/* Standart Buton Tasarımları */
+/* Menü Butonları */
 QPushButton {
-    background-color: #313244;
-    color: #cdd6f4;
-    border: none;
-    padding: 12px;
-    border-radius: 6px; /* Köşeleri yumuşat */
-    font-size: 14px;
-    text-align: left;   /* Yazıyı sola yaslar */
+    background-color: transparent;
+    color: #CCCCCC;
+    border: 1px solid #3E3E42;
+    padding: 8px 12px;
+    border-radius: 0px;
+    font-size: 13px;
+    text-align: center;
 }
 
-/* Fare Butonun Üzerine Geldiğinde efekt */
 QPushButton:hover {
-    background-color: #45475a;
+    background-color: #2D2D30;
+    border: 1px solid #007ACC;
+    color: #FFFFFF;
 }
 
-/* Butona Tıklandığında efekt */
-QPushButton:pressed {
-    background-color: #89b4fa;
-    color: #1e1e2e;
+QPushButton:checked {
+    background-color: #007ACC;
+    color: #FFFFFF;
+    border: 1px solid #007ACC;
     font-weight: bold;
+}
+
+/* Karşılama Metni */
+QLabel#placeholder_text {
+    color: #38BDF8;
+    font-size: 14px;
+    padding: 20px;
 }

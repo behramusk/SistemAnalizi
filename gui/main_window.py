@@ -1,58 +1,83 @@
-from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QLabel, QStackedWidget
+from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QLabel, QStackedWidget, QFrame
 from PySide6.QtCore import Qt
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        # Pencere başlığı ve varsayılan boyutu
         self.setWindowTitle("Sistem Analizi")
-        self.resize(1000, 600) 
+        self.resize(1100, 700) 
 
-        # Ana kapsayıcı widgeti
         self.central_widget = QWidget()
+        self.central_widget.setObjectName("central_widget")
         self.setCentralWidget(self.central_widget)
 
-        #  yatay düzen olarak ayarlandı Sol menü ve Sağ içerik yan yana duracak
         self.main_layout = QHBoxLayout(self.central_widget)
+        self.main_layout.setContentsMargins(10, 10, 10, 10) # Kenarlardan hafif boşluk
+        self.main_layout.setSpacing(10) # Sol ve sağ panel arası boşluk
         
-        # Ekranın iki parçasını oluşturan fonksiyonlar
         self.setup_sidebar()
         self.setup_content_area()
 
     def setup_sidebar(self):
-        # Sol menü dikey  bir liste olacak (Butonlar alt alta)
-        self.sidebar_layout = QVBoxLayout()
-        
-        # Uygulama Başlığı
-        self.logo_label = QLabel("<b>SİSTEM Analizi</b>")
-        self.logo_label.setObjectName("logo_label")
-        self.logo_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.sidebar_layout.addWidget(self.logo_label)
+        # Sol Menü Çerçevesi
+        self.sidebar_frame = QFrame()
+        self.sidebar_frame.setObjectName("sidebar_frame")
+        self.sidebar_layout = QVBoxLayout(self.sidebar_frame)
+        self.sidebar_layout.setContentsMargins(10, 10, 10, 10)
+        self.sidebar_layout.setSpacing(8) # Butonlar arası mesafe
 
-        #  3 adet menü butonu eklendi
+        # 1. Kategori Başlığı 
+        lbl_system = QLabel("Sistem Analizi")
+        lbl_system.setObjectName("category_title")
+        self.sidebar_layout.addWidget(lbl_system)
+
+        # Menü Butonları
         self.btn_system_info = QPushButton("Sistem Bilgisi")
         self.btn_hardware = QPushButton("Donanım")
         self.btn_drivers = QPushButton("Sürücüler")
 
-        self.sidebar_layout.addWidget(self.btn_system_info)
-        self.sidebar_layout.addWidget(self.btn_hardware)
-        self.sidebar_layout.addWidget(self.btn_drivers)
-        
-        # Esnek boşluk: Butonları yukarı iter, aşağıdaki boşluğu otomatik doldurur
-        self.sidebar_layout.addStretch()
+        for btn in [self.btn_system_info, self.btn_hardware, self.btn_drivers]:
+            btn.setCheckable(True)
+            btn.setAutoExclusive(True)
+            self.sidebar_layout.addWidget(btn)
 
-        # Sol menüyü ana yatay düzene eklendi. 
-        self.main_layout.addLayout(self.sidebar_layout, 1) 
+        self.btn_system_info.setChecked(True)
+
+        # 2. Kategori Başlığı 
+        self.sidebar_layout.addSpacing(15) # Araya biraz boşluk
+        lbl_tools = QLabel("Araçlar & Rapor")
+        lbl_tools.setObjectName("category_title")
+        self.sidebar_layout.addWidget(lbl_tools)
+
+        self.btn_update = QPushButton("Windows Update")
+        self.btn_health = QPushButton("Sistem Sağlığı")
+        
+        for btn in [self.btn_update, self.btn_health]:
+            btn.setCheckable(True)
+            btn.setAutoExclusive(True)
+            self.sidebar_layout.addWidget(btn)
+
+        self.sidebar_layout.addStretch()
+        
+        # Sol menü genişliğini sabitliyoruz 
+        self.sidebar_frame.setFixedWidth(220)
+        self.main_layout.addWidget(self.sidebar_frame) 
 
     def setup_content_area(self):
-        # QStackedWidget: Yeni pencere açmak yerine sayfaları üst üste koyar.
-        self.content_area = QStackedWidget()
-        
-        # geçici yazı
-        temp_page = QLabel("<h2>Sol taraftan bir menü seçin...</h2>")
-        temp_page.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.content_area.addWidget(temp_page)
+        # Sağ İçerik Alanı Çerçevesi
+        self.content_frame = QFrame()
+        self.content_frame.setObjectName("content_frame")
+        self.content_layout = QVBoxLayout(self.content_frame)
 
-        # Sağ alan ana düzene eklendi
-        self.main_layout.addWidget(self.content_area, 4)
+        self.content_area = QStackedWidget()
+        self.content_area.setObjectName("content_area")
+        
+        self.temp_page = QLabel("- Sisteminizi analiz etmek için soldan bir modül seçin...")
+        self.temp_page.setObjectName("placeholder_text")
+        self.temp_page.setAlignment(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)
+        
+        self.content_area.addWidget(self.temp_page)
+        self.content_layout.addWidget(self.content_area)
+        
+        self.main_layout.addWidget(self.content_frame)
