@@ -5,6 +5,7 @@ from gui.views.view_hardware import HardwareView
 from gui.views.view_storage import StorageView
 from gui.views.view_network import NetworkView
 from gui.views.view_drivers import DriversView
+from gui.views.view_update import UpdateView
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -139,3 +140,8 @@ class MainWindow(QMainWindow):
         self.content_area.addWidget(self.page_drivers)
         
         self.btn_drivers.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_drivers))
+        # Windows Update sayfası
+        self.page_update = UpdateView()
+        self.content_area.addWidget(self.page_update)
+        
+        self.btn_update.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_update))
