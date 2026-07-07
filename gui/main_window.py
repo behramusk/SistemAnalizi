@@ -3,6 +3,7 @@ from PySide6.QtCore import Qt
 from gui.views.view_system import SystemInfoView
 from gui.views.view_hardware import HardwareView
 from gui.views.view_storage import StorageView
+from gui.views.view_network import NetworkView
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -125,3 +126,9 @@ class MainWindow(QMainWindow):
         self.content_area.addWidget(self.page_storage)
         
         self.btn_storage.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_storage))
+
+        # Ağ sayfası
+        self.page_network = NetworkView()
+        self.content_area.addWidget(self.page_network)
+        
+        self.btn_network.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_network))
