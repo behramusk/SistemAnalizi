@@ -6,6 +6,7 @@ from gui.views.view_storage import StorageView
 from gui.views.view_network import NetworkView
 from gui.views.view_drivers import DriversView
 from gui.views.view_update import UpdateView
+from gui.views.view_security import SecurityView
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -145,3 +146,8 @@ class MainWindow(QMainWindow):
         self.content_area.addWidget(self.page_update)
         
         self.btn_update.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_update))
+        # Güvenlik sayfası
+        self.page_security = SecurityView()
+        self.content_area.addWidget(self.page_security)
+        
+        self.btn_security.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_security))
