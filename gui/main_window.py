@@ -13,59 +13,77 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.central_widget)
 
         self.main_layout = QHBoxLayout(self.central_widget)
-        self.main_layout.setContentsMargins(10, 10, 10, 10) # Kenarlardan hafif boşluk
-        self.main_layout.setSpacing(10) # Sol ve sağ panel arası boşluk
+        self.main_layout.setContentsMargins(10, 10, 10, 10)
+        self.main_layout.setSpacing(10)
         
         self.setup_sidebar()
         self.setup_content_area()
 
     def setup_sidebar(self):
-        # Sol Menü Çerçevesi
         self.sidebar_frame = QFrame()
         self.sidebar_frame.setObjectName("sidebar_frame")
         self.sidebar_layout = QVBoxLayout(self.sidebar_frame)
         self.sidebar_layout.setContentsMargins(10, 10, 10, 10)
-        self.sidebar_layout.setSpacing(8) # Butonlar arası mesafe
+        self.sidebar_layout.setSpacing(8)
 
-        # 1. Kategori Başlığı 
+        # Tüm butonları toplayacağımız liste
+        self.menu_buttons = []
+
+        # --- 1. KATEGORİ: SİSTEM ANALİZİ ---
         lbl_system = QLabel("Sistem Analizi")
         lbl_system.setObjectName("category_title")
         self.sidebar_layout.addWidget(lbl_system)
 
-        # Menü Butonları
         self.btn_system_info = QPushButton("Sistem Bilgisi")
         self.btn_hardware = QPushButton("Donanım")
-        self.btn_drivers = QPushButton("Sürücüler")
+        self.btn_storage = QPushButton("Depolama")
+        self.btn_network = QPushButton("Ağ Durumu")
 
-        for btn in [self.btn_system_info, self.btn_hardware, self.btn_drivers]:
-            btn.setCheckable(True)
-            btn.setAutoExclusive(True)
+        for btn in [self.btn_system_info, self.btn_hardware, self.btn_storage, self.btn_network]:
+            self.menu_buttons.append(btn)
             self.sidebar_layout.addWidget(btn)
 
-        self.btn_system_info.setChecked(True)
+        # --- 2. KATEGORİ: YÖNETİM & GÜVENLİK ---
+        self.sidebar_layout.addSpacing(15)
+        lbl_manage = QLabel("Yönetim & Güvenlik")
+        lbl_manage.setObjectName("category_title")
+        self.sidebar_layout.addWidget(lbl_manage)
 
-        # 2. Kategori Başlığı 
-        self.sidebar_layout.addSpacing(15) # Araya biraz boşluk
+        self.btn_drivers = QPushButton("Sürücüler")
+        self.btn_update = QPushButton("Windows Update")
+        self.btn_security = QPushButton("Güvenlik")
+        self.btn_software = QPushButton("Yüklü Yazılımlar")
+
+        for btn in [self.btn_drivers, self.btn_update, self.btn_security, self.btn_software]:
+            self.menu_buttons.append(btn)
+            self.sidebar_layout.addWidget(btn)
+
+        # --- 3. KATEGORİ: ARAÇLAR & RAPOR ---
+        self.sidebar_layout.addSpacing(15)
         lbl_tools = QLabel("Araçlar & Rapor")
         lbl_tools.setObjectName("category_title")
         self.sidebar_layout.addWidget(lbl_tools)
 
-        self.btn_update = QPushButton("Windows Update")
         self.btn_health = QPushButton("Sistem Sağlığı")
-        
-        for btn in [self.btn_update, self.btn_health]:
-            btn.setCheckable(True)
-            btn.setAutoExclusive(True)
+        self.btn_export = QPushButton("Rapor Çıktısı")
+
+        for btn in [self.btn_health, self.btn_export]:
+            self.menu_buttons.append(btn)
             self.sidebar_layout.addWidget(btn)
 
+        # Tüm butonlara aynı anda Checkable özelliği veriyoruz
+        for btn in self.menu_buttons:
+            btn.setCheckable(True)
+            btn.setAutoExclusive(True)
+
+        # İlk açılışta Sistem Bilgisi seçili gelsin
+        self.btn_system_info.setChecked(True)
+
         self.sidebar_layout.addStretch()
-        
-        # Sol menü genişliğini sabitliyoruz 
         self.sidebar_frame.setFixedWidth(220)
         self.main_layout.addWidget(self.sidebar_frame) 
 
     def setup_content_area(self):
-        # Sağ İçerik Alanı Çerçevesi
         self.content_frame = QFrame()
         self.content_frame.setObjectName("content_frame")
         self.content_layout = QVBoxLayout(self.content_frame)
