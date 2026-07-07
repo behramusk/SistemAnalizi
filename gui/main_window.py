@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QP
 from PySide6.QtCore import Qt
 from gui.views.view_system import SystemInfoView
 from gui.views.view_hardware import HardwareView
+from gui.views.view_storage import StorageView
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -119,3 +120,8 @@ class MainWindow(QMainWindow):
         
         # Program ilk açıldığında Sistem Bilgisi sayfası görünsün
         self.content_area.setCurrentWidget(self.page_system)
+        # Depolama sayfası
+        self.page_storage = StorageView()
+        self.content_area.addWidget(self.page_storage)
+        
+        self.btn_storage.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_storage))
