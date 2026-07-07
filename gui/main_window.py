@@ -7,6 +7,7 @@ from gui.views.view_network import NetworkView
 from gui.views.view_drivers import DriversView
 from gui.views.view_update import UpdateView
 from gui.views.view_security import SecurityView
+from gui.views.view_software import SoftwareView
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -151,3 +152,8 @@ class MainWindow(QMainWindow):
         self.content_area.addWidget(self.page_security)
         
         self.btn_security.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_security))
+        # Yüklü Yazılımlar sayfası
+        self.page_software = SoftwareView()
+        self.content_area.addWidget(self.page_software)
+        
+        self.btn_software.clicked.connect(lambda: self.content_area.setCurrentWidget(self.page_software))
